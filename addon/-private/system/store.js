@@ -772,6 +772,10 @@ const Store = Service.extend({
   },
 
   _findRecord(internalModel, options) {
+    if (internalModel.isNew()) {
+      return Promise.resolve(internalModel);
+    }
+    
     // Refetch if the reload option is passed
     if (options.reload) {
       return this._scheduleFetch(internalModel, options);
